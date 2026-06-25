@@ -223,3 +223,46 @@ body > p {
 	background-color: #085a94;
 	border-color: #085a94;
 }
+
+/* Footer styling */
+.footer {
+	background-color: #1a1a1a !important;
+	border-top: 3px solid #0b66a6;
+	margin-top: auto;
+}
+
+.footer-title {
+	color: #ffffff;
+	font-weight: 600;
+	font-size: 1.1rem;
+}
+
+/* Footer links styling */
+.footer-link {
+	color: #b0b0b0;
+	text-decoration: none;
+	transition: color 0.3s ease;
+	display: inline-block;
+}
+
+.footer-link:hover {
+	color: #0b66a6;
+	text-decoration: none;
+}
+
+/* Footer social icons */
+.footer-social a {
+	font-size: 1.25rem;
+}
+
+/* Responsive footer adjustments */
+@media (max-width: 768px) {
+	.footer {
+		text-align: center;
+	}
+
+	.footer-social {
+		justify-content: center;
+		display: flex;
+	}
+}
