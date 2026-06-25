@@ -178,3 +178,48 @@ body > p {
 	margin: 1rem 0;
 	flex-grow: 1;
 }
+
+/* Subscription section styling */
+.subscribe-section {
+	background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+	border-top: 2px solid #0b66a6;
+}
+
+.subscribe-section h2 {
+	color: #0b66a6;
+	font-weight: 600;
+	font-size: 2rem;
+}
+
+.subscribe-section .form-label {
+	color: #333;
+	font-weight: 500;
+	margin-bottom: 0.75rem;
+	display: block;
+}
+
+.subscribe-section .form-control-lg {
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subscribe-section .form-control-lg:focus {
+	border-color: #0b66a6;
+	box-shadow: 0 0 0 0.2rem rgba(11, 102, 166, 0.25);
+}
+
+.subscribe-section .btn-lg {
+	background-color: #0b66a6;
+	border-color: #0b66a6;
+	font-weight: 500;
+	padding: 0.75rem 2rem;
+	transition: background-color 0.3s ease;
+}
+
+.subscribe-section .btn-lg:hover {
+	background-color: #085a94;
+	border-color: #085a94;
+}
