@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Language: en | Direction will be set dynamically by JavaScript -->
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intel: Sustainability Through the Ages</title>
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS (starts with LTR, will switch to RTL via JavaScript if needed) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <!-- Header / Hero Section -->
   <header>
     <div>
@@ -195,5 +195,84 @@
 
   <!-- Bootstrap JavaScript Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Language Detection and RTL/LTR Support -->
+  <script>
+    // List of Right-to-Left (RTL) language codes
+    const RTL_LANGUAGES = ['ar', 'he', 'fa', 'ur', 'yi', 'ji', 'iw', 'ku', 'ps', 'sd'];
+
+    // Function to check if a language is RTL
+    function isRTL(languageCode) {
+      // Get the base language code (e.g., 'ar' from 'ar-SA')
+      const baseLang = languageCode.split('-')[0].toLowerCase();
+      return RTL_LANGUAGES.includes(baseLang);
+    }
+
+    // Function to apply the correct direction and CSS
+    function applyLanguageDirection(languageCode) {
+      const htmlElement = document.documentElement;
+      const rtl = isRTL(languageCode);
+
+      // Update the dir attribute
+      htmlElement.dir = rtl ? 'rtl' : 'ltr';
+
+      // Switch Bootstrap CSS between RTL and LTR
+      let bootstrapLink = document.querySelector('link[href*="bootstrap"]');
+      if (bootstrapLink) {
+        if (rtl) {
+          // Use RTL version of Bootstrap
+          bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css';
+        } else {
+          // Use LTR version of Bootstrap
+          bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css';
+        }
+      }
+
+      // Log the language change for debugging
+      console.log(`Language changed to: ${languageCode} (${rtl ? 'RTL' : 'LTR'})`);
+    }
+
+    // Apply language direction on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentLang = document.documentElement.lang || 'en';
+      applyLanguageDirection(currentLang);
+    });
+
+    // Function to change language (can be called from UI controls)
+    function changeLanguage(languageCode) {
+      document.documentElement.lang = languageCode;
+      applyLanguageDirection(languageCode);
+    }
+
+    // Make the function globally available for external controls
+    window.changeLanguage = changeLanguage;
+
+    // Automatically detect when translator changes the language
+    // This watches for changes to the lang attribute on the <html> element
+    const htmlElement = document.documentElement;
+    
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+          // Language attribute changed (browser translator detected)
+          const newLang = htmlElement.lang;
+          console.log(`Translator detected: Language changed to ${newLang}`);
+          applyLanguageDirection(newLang);
+        }
+      });
+    });
+    
+    // Watch for changes to the lang attribute
+    observer.observe(htmlElement, {
+      attributes: true,
+      attributeFilter: ['lang']
+    });
+    
+    // Apply initial direction on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentLang = document.documentElement.lang || 'en';
+      applyLanguageDirection(currentLang);
+    });
+  </script>
 </body>
 </html>
